@@ -4,13 +4,19 @@
       max-w-sm
       bg-white
       rounded-lg
+      mx-2
+      my-1
       border border-gray-200
       shadow-md
       dark:bg-gray-800 dark:border-gray-700
     "
   >
     <a href="#">
-      <img class="rounded-t-lg" src="https://cloud.corferias.co/service/por_cla/doc_expositor.cfm?id=5636" alt="" />
+      <img
+        class="rounded-t-lg"
+        src="https://cloud.corferias.co/service/por_cla/doc_expositor.cfm?id=5636"
+        alt=""
+      />
     </a>
     <div class="p-5">
       <a href="#">
@@ -31,8 +37,8 @@
         Here are the biggest enterprise technology acquisitions of 2021 so far,
         in reverse chronological order.
       </p>
-      <a
-        href="#"
+      <router-link
+        :to="{ name: 'store-view', params: { id: shop } }"
         class="
           inline-flex
           items-center
@@ -61,13 +67,20 @@
             clip-rule="evenodd"
           ></path>
         </svg>
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    shop: {
+      type: Number,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style>

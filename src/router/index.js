@@ -6,15 +6,27 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  }, 
+  {
+    path: '/store',
+    name: 'store',
+    component: () => import('@/views/shop/store/StoreList.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/store/:id',
+    name: 'store-view',
+    component: () => import('@/views/shop/store/StorePreview.vue')
+  },
+  {
+    path: '/article/:id',
+    name: 'article-view',
+    component: () => import('@/views/shop/article/ArticlePreview.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/auth/LoginPage.vue')
+  },
 ]
 
 const router = createRouter({

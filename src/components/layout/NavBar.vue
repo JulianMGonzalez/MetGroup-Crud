@@ -14,14 +14,14 @@
           "
         >
           <div class="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
+            <router-link to="/">
               <span class="sr-only">Crud</span>
               <img
                 class="h-16 w-auto sm:h-24"
                 src="@/assets/metGroup.jpg"
                 alt="logo"
               />
-            </a>
+            </router-link>
           </div>
           <div class="-mr-2 -my-2 md:hidden">
             <PopoverButton
@@ -103,10 +103,10 @@
                         sm:gap-8 sm:p-8
                       "
                     >
-                      <a
+                      <router-link
                         v-for="item in solutions"
                         :key="item.name"
-                        :href="item.href"
+                        :to="item.href"
                         class="
                           -m-3
                           p-3
@@ -129,7 +129,7 @@
                             {{ item.description }}
                           </p>
                         </div>
-                      </a>
+                      </router-link>
                     </div>
                     <div
                       class="
@@ -145,8 +145,8 @@
                         :key="item.name"
                         class="flow-root"
                       >
-                        <a
-                          :href="item.href"
+                        <router-link
+                          :to="item.href"
                           class="
                             -m-3
                             p-3
@@ -165,7 +165,7 @@
                             aria-hidden="true"
                           />
                           <span class="ml-3">{{ item.name }}</span>
-                        </a>
+                        </router-link>
                       </div>
                     </div>
                   </div>
@@ -324,19 +324,29 @@
             </Popover>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a
-              href="#"
+            <router-link
+              :to="{ name: 'login' }"
               class="
+                ml-8
                 whitespace-nowrap
+                inline-flex
+                items-center
+                justify-center
+                px-4
+                py-2
+                border border-transparent
+                rounded-md
+                shadow-sm
                 text-base
                 font-medium
-                text-gray-500
-                hover:text-gray-900
+                text-white
+                bg-indigo-600
+                hover:bg-indigo-700
               "
             >
               Sign in
-            </a>
-            <a
+            </router-link>
+            <!-- <a
               href="#"
               class="
                 ml-8
@@ -357,7 +367,7 @@
               "
             >
               Sign up
-            </a>
+            </a> -->
           </div>
         </div>
       </div>
@@ -514,9 +524,12 @@
                 <p class="mt-6 text-center text-base font-medium text-gray-500">
                   Existing customer?
                   {{ " " }}
-                  <a href="#" class="text-indigo-600 hover:text-indigo-500">
+                  <router-link
+                    :to="{ name: 'login' }"
+                    class="text-indigo-600 hover:text-indigo-500"
+                  >
                     Sign in
-                  </a>
+                  </router-link>
                 </p>
               </div>
             </div>

@@ -1,18 +1,13 @@
 <template>
-  <div class="h-100 flex justify-center items-center">
-    <StorePreview />
-    <StorePreview />
-    <StorePreview />
-  </div>
+  <store-list />
 </template>
 
 <script>
-import StorePreview from "@/components/shop/StorePreview.vue";
-
+import StoreList from "@/views/shop/store/StoreList.vue";
 export default {
-  name: "HomeView",
   components: {
-    StorePreview,
+    StoreList,
   },
+  name: "HomeView",
 };
 </script>
