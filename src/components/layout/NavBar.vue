@@ -1,5 +1,4 @@
 <template>
-  <div></div>
   <div>
     <Popover class="relative bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -52,7 +51,7 @@
                   'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
                 ]"
               >
-                <span>Solutions</span>
+                <span>Crud</span>
                 <ChevronDownIcon
                   :class="[
                     open ? 'text-gray-600' : 'text-gray-400',
@@ -130,43 +129,6 @@
                           </p>
                         </div>
                       </router-link>
-                    </div>
-                    <div
-                      class="
-                        px-5
-                        py-5
-                        bg-gray-50
-                        space-y-6
-                        sm:flex sm:space-y-0 sm:space-x-10 sm:px-8
-                      "
-                    >
-                      <div
-                        v-for="item in callsToAction"
-                        :key="item.name"
-                        class="flow-root"
-                      >
-                        <router-link
-                          :to="item.href"
-                          class="
-                            -m-3
-                            p-3
-                            flex
-                            items-center
-                            rounded-md
-                            text-base
-                            font-medium
-                            text-gray-900
-                            hover:bg-gray-100
-                          "
-                        >
-                          <component
-                            :is="item.icon"
-                            class="flex-shrink-0 h-6 w-6 text-gray-400"
-                            aria-hidden="true"
-                          />
-                          <span class="ml-3">{{ item.name }}</span>
-                        </router-link>
-                      </div>
                     </div>
                   </div>
                 </PopoverPanel>
@@ -553,53 +515,26 @@ import {
   ChartBarIcon,
   CursorClickIcon,
   MenuIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
   ShieldCheckIcon,
   SupportIcon,
-  ViewGridIcon,
   XIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
 
 const solutions = [
   {
-    name: "Analytics",
+    name: "Stores",
     description:
       "Get a better understanding of where your traffic is coming from.",
-    href: "#",
+    href: "/store",
     icon: ChartBarIcon,
   },
   {
-    name: "Engagement",
+    name: "Articles",
     description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
+    href: "/article",
     icon: CursorClickIcon,
   },
-  {
-    name: "Security",
-    description: "Your customers' data will be safe and secure.",
-    href: "#",
-    icon: ShieldCheckIcon,
-  },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools that you're already using.",
-    href: "#",
-    icon: ViewGridIcon,
-  },
-  {
-    name: "Automations",
-    description:
-      "Build strategic funnels that will drive your customers to convert",
-    href: "#",
-    icon: RefreshIcon,
-  },
-];
-const callsToAction = [
-  { name: "Watch Demo", href: "#", icon: PlayIcon },
-  { name: "Contact Sales", href: "#", icon: PhoneIcon },
 ];
 const resources = [
   {

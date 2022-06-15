@@ -1,44 +1,53 @@
 <template>
   <div
     class="
-      max-w-sm
-      bg-white
-      rounded-lg
+      flex
+      w-96
+      flex-col
+      justify-center
+      flex-wrap
       mx-2
       my-1
-      border border-gray-200
-      shadow-md
-      dark:bg-gray-800 dark:border-gray-700
+      bg-white
+      rounded-2xl
+      shadow-xl shadow-slate-300/60
     "
   >
-    <a href="#">
+    <router-link :to="{ name: 'store-view', params: { id: shop.id } }">
       <img
-        class="rounded-t-lg"
-        src="https://cloud.corferias.co/service/por_cla/doc_expositor.cfm?id=5636"
-        alt=""
+        class="aspect-video w-96 rounded-t-2xl object-cover object-center"
+        :src="shop.image"
       />
-    </a>
-    <div class="p-5">
-      <a href="#">
-        <h5
-          class="
-            mb-2
-            text-2xl
-            font-bold
-            tracking-tight
-            text-gray-900
-            dark:text-white
-          "
-        >
-          Noteworthy technology acquisitions 2021
+    </router-link>
+    <div class="p-4">
+      <small class="text-blue-400 text-xs">store</small>
+      <router-link :to="{ name: 'store-view', params: { id: shop.id } }">
+        <h5 class="text-2xl font-medium text-slate-600 pb-2">
+          {{ shop.name }}
         </h5>
-      </a>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far,
-        in reverse chronological order.
+      </router-link>
+      <p class="text-sm tracking-tight font-light text-slate-400 leading-6">
+        {{ shop.description }}
       </p>
+      <div class="flex items-center justify-between mt-1">
+        <div class="flex flex-column items-center pt-4">
+          <div class="h-12 w-12">
+            <img
+              :src="shop.user.avatar"
+              alt
+              class="h-full w-full object-cover overflow-hidden rounded-full"
+            />
+          </div>
+          <p class="font-medium ml-3">
+            {{ shop.user.name }} {{ shop.user.last_name }}<br />
+            <span class="text-base font-light">{{ shop.user.email }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="p-5">
       <router-link
-        :to="{ name: 'store-view', params: { id: shop } }"
+        :to="{ name: 'store-view', params: { id: shop.id } }"
         class="
           inline-flex
           items-center
@@ -55,28 +64,24 @@
         "
       >
         Read more
-        <svg
-          class="ml-2 -mr-1 w-4 h-4"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
+        <ArrowNarrowRightIcon
+          class="w-4"
+          aria-hidden="true"
+        />
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
+import { ArrowNarrowRightIcon } from '@heroicons/vue/solid'
 export default {
+  components: {
+    ArrowNarrowRightIcon,
+  },
   props: {
     shop: {
-      type: Number,
+      type: Object,
       required: true,
     },
   },

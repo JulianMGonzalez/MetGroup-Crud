@@ -1,5 +1,15 @@
 <template>
-  <div class="container  px-4 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div
+    class="
+      container
+      px-4
+      mx-auto
+      relative
+      overflow-x-auto
+      shadow-md
+      sm:rounded-lg
+    "
+  >
     <div class="p-4">
       <label for="table-search" class="sr-only">Search</label>
       <div class="relative mt-1">
@@ -82,10 +92,10 @@
               <label for="checkbox-all-search" class="sr-only">checkbox</label>
             </div>
           </th>
+          <th scope="col" class="px-6 py-3">Id</th>
           <th scope="col" class="px-6 py-3">Product name</th>
-          <th scope="col" class="px-6 py-3">Color</th>
-          <th scope="col" class="px-6 py-3">Category</th>
-          <th scope="col" class="px-6 py-3">Price</th>
+          <th scope="col" class="px-6 py-3">description</th>
+          <th scope="col" class="px-6 py-3">Image</th>
           <th scope="col" class="px-6 py-3">
             <span class="sr-only">Edit</span>
           </th>
@@ -93,6 +103,88 @@
       </thead>
       <tbody>
         <tr
+          v-for="item in articles"
+          :key="item.id"
+          class="
+            bg-white
+            border-b
+            dark:bg-gray-800 dark:border-gray-700
+            hover:bg-gray-50
+            dark:hover:bg-gray-600
+          "
+        >
+          <td class="w-4 p-4">
+            <div class="flex items-center">
+              <input
+                id="checkbox-table-search-1"
+                type="checkbox"
+                class="
+                  w-4
+                  h-4
+                  text-blue-600
+                  bg-gray-100
+                  border-gray-300
+                  rounded
+                  focus:ring-blue-500
+                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                  focus:ring-2
+                  dark:bg-gray-700 dark:border-gray-600
+                "
+              />
+              <label for="checkbox-table-search-1" class="sr-only"
+                >checkbox</label
+              >
+            </div>
+          </td>
+          <th
+            scope="row"
+            class="
+              px-6
+              py-4
+              font-medium
+              text-gray-900
+              dark:text-white
+              whitespace-nowrap
+            "
+          >
+            {{ item.id }}
+          </th>
+          <td class="px-6 py-4">{{ item.name }}</td>
+          <td class="px-6 py-4">{{ item.description }}</td>
+          <td class="px-6 py-4">
+            <div class="w-12 h-12">
+              <img
+                class="rounded-full border border-gray-100 shadow-sm"
+                :src="item.image"
+                alt="product"
+              />
+            </div>
+          </td>
+          <td class="px-6 py-4 text-right">
+            <router-link
+              :to="{ name: 'article-view', params: { id: item.id } }"
+              class="
+                font-medium
+                text-blue-600
+                dark:text-blue-500
+                hover:underline
+                mx-2
+              "
+              >Details</router-link
+            >
+            <a
+              href="#"
+              class="
+                font-medium
+                text-blue-600
+                dark:text-blue-500
+                hover:underline
+              "
+              >Edit</a
+            >
+          </td>
+        </tr>
+        <!--  <tr
           class="
             bg-white
             border-b
@@ -273,14 +365,26 @@
               >Edit</a
             >
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-export default {};
+import axiosA from "@/services/article";
+export default {
+  data() {
+    return {
+      articles: [],
+    };
+  },
+  mounted() {
+    axiosA.articleListId(this.$route.params.id).then((res) => {
+      this.articles = res.data.articles;
+    });
+  },
+};
 </script>
 
 <style>

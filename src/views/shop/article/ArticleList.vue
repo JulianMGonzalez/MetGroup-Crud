@@ -103,7 +103,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in store"
+          v-for="item in article"
           :key="item.id"
           class="
             bg-white
@@ -372,16 +372,16 @@
 </template>
 
 <script>
-import axiosS from "@/services/store";
+import axiosA from "@/services/article";
 export default {
   data() {
     return {
-      store: [],
+      article: [],
     };
   },
   mounted() {
-    axiosS.storeList(this.$route.params.id).then((res) => {
-      this.store = res.data;
+    axiosA.articleList().then((res) => {
+      this.article = res.data;
     });
   },
 };

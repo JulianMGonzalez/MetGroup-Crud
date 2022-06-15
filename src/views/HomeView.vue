@@ -1,13 +1,64 @@
 <template>
-  <store-list />
+  <div class="container mx-auto">
+    <div class="flex justify-end my-1">
+      <button
+        type="button"
+        class="
+          flex
+          items-center
+          rounded-lg
+          bg-blue-700
+          px-4
+          py-2
+          text-white
+          hover:bg-blue-900
+        "
+      >
+        <span
+          class="font-medium"
+          @click="conditionalCreate = true"
+        >
+          Add Store
+        </span>
+      </button>
+    </div>
+
+    <div class="h-100 flex flex-wrap justify-center items-center">
+      <div v-for="item in shops" :key="item.id">
+        <StorePreview :shop="item" />
+      </div>
+    </div>
+    <StoreAdd :open="conditionalCreate" @closeSlider="changeConditional"/>
+  </div>
 </template>
 
 <script>
-import StoreList from "@/views/shop/store/StoreList.vue";
+import StorePreview from "@/components/shop/StorePreview.vue";
+import StoreAdd from "@/components/shop/StoreAdd.vue";
+import axiosS from "@/services/store";
 export default {
   components: {
-    StoreList,
+    StorePreview,
+    StoreAdd,
   },
-  name: "HomeView",
+  data() {
+    return {
+      shops: [],
+      conditionalCreate: false,
+    };
+  },
+  mounted() {
+    axiosS.storeList().then((res) => {
+      this.shops = res.data;
+    });
+  },
+  methods: {
+    changeConditional() {
+      this.conditionalCreate = false;
+    },
+  },
 };
 </script>
+
+<style>
+</style>
