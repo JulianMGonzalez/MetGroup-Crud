@@ -6,7 +6,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  }, 
+  },
   {
     path: '/store',
     name: 'store',
@@ -16,6 +16,11 @@ const routes = [
     path: '/store/:id',
     name: 'store-view',
     component: () => import('@/views/shop/store/StorePreview.vue')
+  },
+  {
+    path: '/article',
+    name: 'article',
+    component: () => import('@/views/shop/article/ArticleList.vue')
   },
   {
     path: '/article/:id',
