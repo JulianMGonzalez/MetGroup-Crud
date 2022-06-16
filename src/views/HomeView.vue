@@ -2,6 +2,7 @@
   <div class="container mx-auto">
     <div class="flex justify-end my-1">
       <button
+        v-if="isLoggedIn"
         type="button"
         class="
           flex
@@ -37,11 +38,15 @@
 import StorePreview from "@/components/shop/StorePreview.vue";
 import StoreAdd from "@/components/shop/StoreAdd.vue";
 import axiosS from "@/services/store";
+
+import userAuth from "@/mixins/userAuth";
+
 export default {
   components: {
     StorePreview,
     StoreAdd,
   },
+  mixins: [userAuth],
   data() {
     return {
       shops: [],

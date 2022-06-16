@@ -135,29 +135,33 @@
             </Popover>
           </PopoverGroup>
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <router-link
-              :to="{ name: 'login' }"
-              class="
-                ml-8
-                whitespace-nowrap
-                inline-flex
-                items-center
-                justify-center
-                px-4
-                py-2
-                border border-transparent
-                rounded-md
-                shadow-sm
-                text-base
-                font-medium
-                text-white
-                bg-indigo-600
-                hover:bg-indigo-700
-              "
-            >
-              Sign in
-            </router-link>
-            
+            <div v-if="isLoggedIn">
+              <AvatarProfile />
+            </div>
+            <div v-else>
+              <router-link
+                :to="{ name: 'login' }"
+                class="
+                  ml-8
+                  whitespace-nowrap
+                  inline-flex
+                  items-center
+                  justify-center
+                  px-4
+                  py-2
+                  border border-transparent
+                  rounded-md
+                  shadow-sm
+                  text-base
+                  font-medium
+                  text-white
+                  bg-indigo-600
+                  hover:bg-indigo-700
+                "
+              >
+                Sign in
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -332,6 +336,8 @@ import {
   XIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
+import AvatarProfile from "@/components/layout/AvatarProfile";
+import userAuth from '@/mixins/userAuth';
 export default {
   components: {
     Popover,
@@ -343,7 +349,9 @@ export default {
     MenuIcon,
     XIcon,
     ChevronDownIcon,
+    AvatarProfile,
   },
+  mixins: [userAuth],
   data() {
     return {
       solutions: [
@@ -367,7 +375,7 @@ export default {
             "Manage your users with our powerful, easy-to-use dashboard.",
           href: "/user",
           icon: ChartBarIcon,
-        }
+        },
       ],
     };
   },

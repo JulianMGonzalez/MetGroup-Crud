@@ -173,50 +173,57 @@
           </th>
           <td class="px-6 py-4">
             <div class="w-12 h-12">
-                <img class="rounded-full border border-gray-100 shadow-sm" :src="item.avatar" :alt="item.name" >
+              <img
+                class="rounded-full border border-gray-100 shadow-sm"
+                :src="item.avatar"
+                :alt="item.name"
+              />
             </div>
           </td>
           <td class="px-6 py-4">{{ item.name }}</td>
           <td class="px-6 py-4">{{ item.last_name }}</td>
           <td class="px-6 py-4">{{ item.email }}</td>
-          <td class="px-6 py-4 text-right flex">
-            <router-link
-              :to="{ name: 'user-view', params: { id: item.id } }"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
-            /></router-link>
-            <button
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="editItem(item)"
-              ><PencilIcon class="w-4" aria-hidden="true"
-            /></button>
-            <button
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="deleteItem(item.id)"
-            >
-              <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
-            </button>
-          </td>
+          <div v-if="isLoggedIn">
+            <td class="px-6 py-4 text-right flex">
+              <router-link
+                :to="{ name: 'user-view', params: { id: item.id } }"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
+              /></router-link>
+              <button
+                href="#"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="editItem(item)"
+              >
+                <PencilIcon class="w-4" aria-hidden="true" />
+              </button>
+              <button
+                href="#"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="deleteItem(item.id)"
+              >
+                <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
+              </button>
+            </td>
+          </div>
         </tr>
       </tbody>
     </table>
@@ -248,6 +255,8 @@ import UserAdd from "@/components/user/UserAdd.vue";
 import UserDelete from "@/components/user/UserDelete.vue";
 import UserEdit from "@/components/user/UserEdit.vue";
 
+import userAuth from "@/mixins/userAuth";
+
 import axiosU from "@/services/user";
 export default {
   components: {
@@ -258,6 +267,7 @@ export default {
     UserDelete,
     UserEdit,
   },
+  mixins: [userAuth],
   data() {
     return {
       store: [],

@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/store/:id',
     name: 'store-view',
-    component: () => import('@/views/shop/store/StorePreview.vue')
+    component: () => import('@/views/shop/store/StorePreview.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/article',
@@ -25,7 +26,8 @@ const routes = [
   {
     path: '/article/:id',
     name: 'article-view',
-    component: () => import('@/views/shop/article/ArticlePreview.vue')
+    component: () => import('@/views/shop/article/ArticlePreview.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
@@ -35,24 +37,37 @@ const routes = [
   {
     path: '/user',
     name: 'user',
-    component: () => import('@/views/shop/user/UserList.vue')
+    component: () => import('@/views/shop/user/UserList.vue'),
   },
   {
     path: '/user/:id',
     name: 'user-view',
-    component: () => import('@/views/shop/user/UserStoreList.vue')
+    component: () => import('@/views/shop/user/UserStoreList.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: "/:catchAll(.*)",
     name: 'PageNotFound',
     component: () => import('@/components/layout/PageNotFound.vue')
   },
-  
+
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem('userMetGroup')) {
+      next()
+      return
+    }
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

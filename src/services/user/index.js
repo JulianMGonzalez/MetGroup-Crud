@@ -40,10 +40,19 @@ export const userListId = async (id) => {
     }
 }
 
+export const loginUser = async (user) => {
+    try {
+        return await appAxios.post(`login`, user).then(res => res.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export default {
     userList,
     userCreate,
     userUpdate,
     userDelete,
-    userListId
+    userListId,
+    loginUser
 }

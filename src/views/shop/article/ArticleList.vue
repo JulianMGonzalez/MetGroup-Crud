@@ -64,6 +64,7 @@
       </div>
       <div class="flex justify-end my-1">
         <button
+        v-if="isLoggedIn"
           type="button"
           class="
             flex
@@ -182,55 +183,57 @@
               />
             </div>
           </td>
-          <td class="px-6 py-4 text-right flex">
-            <router-link
-              :to="{ name: 'article-view', params: { id: item.id } }"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
-            /></router-link>
-            <button
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="assignStore(item.id)"
-            >
-              <PlusIcon class="w-4" aria-hidden="true" />
-            </button>
-            <button
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="editItem(item)"
-            >
-              <PencilIcon class="w-4" aria-hidden="true" />
-            </button>
-            <button
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="deleteItem(item.id)"
-            >
-              <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
-            </button>
-          </td>
+          <div v-if="isLoggedIn">
+            <td class="px-6 py-4 text-right flex">
+              <router-link
+                :to="{ name: 'article-view', params: { id: item.id } }"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
+              /></router-link>
+              <button
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="assignStore(item.id)"
+              >
+                <PlusIcon class="w-4" aria-hidden="true" />
+              </button>
+              <button
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="editItem(item)"
+              >
+                <PencilIcon class="w-4" aria-hidden="true" />
+              </button>
+              <button
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="deleteItem(item.id)"
+              >
+                <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
+              </button>
+            </td>
+          </div>
         </tr>
       </tbody>
     </table>
@@ -273,6 +276,8 @@ import ArticleDelete from "@/components/article/ArticleDelete.vue";
 import ArticleAssign from "@/components/article/ArticleAssign.vue";
 import ArticleEdit from "@/components/article/ArticleEdit.vue";
 import axiosA from "@/services/article";
+
+import userAuth from '@/mixins/userAuth';
 export default {
   components: {
     ArticleAdd,
@@ -284,6 +289,7 @@ export default {
     PencilIcon,
     EyeIcon,
   },
+  mixins: [userAuth],
   data() {
     return {
       article: [],

@@ -64,6 +64,7 @@
       </div>
       <div class="">
         <button
+          v-if="isLoggedIn"
           type="button"
           class="
             flex
@@ -181,44 +182,47 @@
               />
             </div>
           </td>
-          <td class="px-6 py-4 text-right flex">
-            <router-link
-              :to="{ name: 'store-view', params: { id: item.id } }"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
-            /></router-link>
-            <button
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="editItem(item)"
-              ><PencilIcon class="w-4" aria-hidden="true"
-            /></button>
-            <button
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-                mx-2
-              "
-              @click="deleteItem(item.id)"
-            >
-              <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
-            </button>
-          </td>
+          <div v-if="isLoggedIn">
+            <td class="px-6 py-4 text-right flex">
+              <router-link
+                :to="{ name: 'store-view', params: { id: item.id } }"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
+              /></router-link>
+              <button
+                href="#"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="editItem(item)"
+              >
+                <PencilIcon class="w-4" aria-hidden="true" />
+              </button>
+              <button
+                href="#"
+                class="
+                  font-medium
+                  text-blue-600
+                  dark:text-blue-500
+                  hover:underline
+                  mx-2
+                "
+                @click="deleteItem(item.id)"
+              >
+                <TrashIcon class="w-4 text-red-500" aria-hidden="true" />
+              </button>
+            </td>
+          </div>
         </tr>
       </tbody>
     </table>
@@ -251,6 +255,8 @@ import StoreDelete from "@/components/shop/StoreDelete.vue";
 import StoreEdit from "@/components/shop/StoreEdit.vue";
 
 import axiosS from "@/services/store";
+
+import userAuth from "@/mixins/userAuth";
 export default {
   components: {
     TrashIcon,
@@ -260,6 +266,7 @@ export default {
     StoreDelete,
     StoreEdit,
   },
+  mixins: [userAuth],
   data() {
     return {
       store: [],
