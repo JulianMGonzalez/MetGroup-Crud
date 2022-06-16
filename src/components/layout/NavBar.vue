@@ -361,6 +361,13 @@ export default {
           href: "/article",
           icon: CursorClickIcon,
         },
+        {
+          name: "Users",
+          description:
+            "Manage your users with our powerful, easy-to-use dashboard.",
+          href: "/user",
+          icon: ChartBarIcon,
+        }
       ],
     };
   },

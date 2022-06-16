@@ -33,6 +33,16 @@ const routes = [
     component: () => import('@/views/auth/LoginPage.vue')
   },
   {
+    path: '/user',
+    name: 'user',
+    component: () => import('@/views/shop/user/UserList.vue')
+  },
+  {
+    path: '/user/:id',
+    name: 'user-view',
+    component: () => import('@/views/shop/user/UserStoreList.vue')
+  },
+  {
     path: "/:catchAll(.*)",
     name: 'PageNotFound',
     component: () => import('@/components/layout/PageNotFound.vue')

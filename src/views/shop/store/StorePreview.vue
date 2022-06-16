@@ -170,18 +170,8 @@
                 hover:underline
                 mx-2
               "
-              >Details</router-link
-            >
-            <a
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-              "
-              >Edit</a
-            >
+              ><EyeIcon class="w-4 text-green-500" aria-hidden="true"
+            /></router-link>
           </td>
         </tr>
         <!--  <tr
@@ -373,7 +363,11 @@
 
 <script>
 import axiosA from "@/services/article";
+import { EyeIcon } from "@heroicons/vue/outline";
 export default {
+  components:{
+    EyeIcon
+  },
   data() {
     return {
       articles: [],
