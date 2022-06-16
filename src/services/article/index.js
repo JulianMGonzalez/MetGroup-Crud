@@ -22,10 +22,46 @@ export const articleListId = async (id) => {
     } catch (error) {
         console.log(error);
     }
-}   
+} 
+
+export const articleAdd = async (data) => {
+    try {
+        return await appAxios.post(`article`, data).then(res => res.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const articleUpdate = async (id, data) => {
+    try {
+        return await appAxios.put(`article/${id}`, data).then(res => res.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const articleDelete = async (id) => {
+    try {
+        return await appAxios.delete(`article/${id}`).then(res => res.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const articleAssign = async (data) => {
+    try {
+        return await appAxios.post(`article/asign`, data).then(res => res.data)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export default {
     articleList,
     articleListId,
-    articleDetail
+    articleDetail,
+    articleAdd,
+    articleUpdate,
+    articleDelete,
+    articleAssign
 }

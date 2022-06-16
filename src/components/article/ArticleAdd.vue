@@ -89,7 +89,7 @@
                 >
                   <div class="px-4 sm:px-6">
                     <DialogTitle class="text-lg font-medium text-gray-900">
-                      Add Store
+                      Add article
                     </DialogTitle>
                   </div>
                   <div class="mt-6 flex-1 px-4 sm:px-6">
@@ -98,7 +98,7 @@
                       <label for="name" class="sr-only">Name</label>
                       <input
                         id="name"
-                        v-model="store.name"
+                        v-model="article.name"
                         name="name"
                         type="text"
                         autocomplete="name"
@@ -129,7 +129,7 @@
                         >Description</label
                       >
                       <input
-                        v-model="store.description"
+                        v-model="article.description"
                         id="description"
                         name="description"
                         type="text"
@@ -159,7 +159,7 @@
                     <div class="my-4">
                       <label for="image" class="sr-only">Image</label>
                       <input
-                        v-model="store.image"
+                        v-model="article.image"
                         id="image"
                         name="image"
                         type="text"
@@ -186,44 +186,6 @@
                         placeholder="Image link"
                       />
                     </div>
-                    <div class="my-4">
-                      <label for="users" class="sr-only"></label>
-                      <select
-                        id="users"
-                        name="user"
-                        type="select"
-                        autocomplete="user"
-                        required=""
-                        class="
-                          appearance-none
-                          rounded-none
-                          relative
-                          block
-                          w-full
-                          px-3
-                          py-2
-                          border border-gray-300
-                          placeholder-gray-500
-                          text-gray-900
-                          rounded-t-md
-                          focus:outline-none
-                          focus:ring-indigo-500
-                          focus:border-indigo-500
-                          focus:z-10
-                          sm:text-sm
-                        "
-                        placeholder="User"
-                        v-model="store.user"
-                      >
-                        <option
-                          v-for="user in users"
-                          :key="user.id"
-                          :value="user.id"
-                        >
-                          {{ user.name }}
-                        </option>
-                      </select>
-                    </div>
                     <button
                       type="button"
                       class="
@@ -236,13 +198,13 @@
                         text-white
                         hover:bg-blue-900
                       "
-                      @click="addStore"
+                      @click="addArticle"
                     >
                       <span
                         class="font-medium"
                         @click="conditionalCreate = true"
                       >
-                        Add Store
+                        Add article
                       </span>
                     </button>
                     <!-- /End replace -->
@@ -267,8 +229,7 @@ import {
 } from "@headlessui/vue";
 import { XIcon } from "@heroicons/vue/outline";
 
-import axiosU from "@/services/user";
-import axiosS from "@/services/store";
+import axiosA from "@/services/article"
 
 export default {
   components: {
@@ -287,37 +248,31 @@ export default {
   },
   data() {
     return {
-      store: {
+      article: {
         name: "",
         description: "",
         image: "",
-        user: "",
       },
-      users: [],
     };
-  },
-  mounted() {
-    this.getUsers();
   },
   methods: {
     closeOpen() {
       this.$emit("closeSlider", false);
     },
-    getUsers() {
-      axiosU.userList().then((res) => {
-        this.users = res.data;
+    addArticle() {
+      const data = {
+        name: this.article.name,
+        description: this.article.description,
+        image: this.article.image,
+      };
+      axiosA.articleAdd(data).then(() => {
+        this.$emit("addArticleSlider", false);
       });
-    },
-    addStore() {
-        const data = {
-            name: this.store.name,
-            description: this.store.description,
-            image: this.store.image,
-            userId: this.store.user,
-        }
-      axiosS.storeAdd(data).then(() => {
-        this.$emit("addStoreSlider", false);
-      });
+      this.article = {
+        name: "",
+        description: "",
+        image: "",
+      };
     },
   },
 };

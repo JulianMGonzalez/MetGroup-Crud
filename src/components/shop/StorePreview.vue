@@ -33,14 +33,14 @@
         <div class="flex flex-column items-center pt-4">
           <div class="h-12 w-12">
             <img
-              :src="shop.user.avatar"
+              :src="shop.user ? shop.user.avatar : ''"
               alt
               class="h-full w-full object-cover overflow-hidden rounded-full"
             />
           </div>
           <p class="font-medium ml-3">
-            {{ shop.user.name }} {{ shop.user.last_name }}<br />
-            <span class="text-base font-light">{{ shop.user.email }}</span>
+            {{ shop.user ? shop.user.name : '' }} {{ shop.user ? shop.user.last_name : '' }}<br />
+            <span class="text-base font-light">{{ shop.user ? shop.user.email : '' }}</span>
           </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/article',
     name: 'article',
-    component: () => import('@/views/shop/article/ArticleList.vue')
+    component: () => import('@/views/shop/article/ArticleList.vue'),
   },
   {
     path: '/article/:id',
@@ -32,6 +32,12 @@ const routes = [
     name: 'login',
     component: () => import('@/views/auth/LoginPage.vue')
   },
+  {
+    path: "/:catchAll(.*)",
+    name: 'PageNotFound',
+    component: () => import('@/components/layout/PageNotFound.vue')
+  },
+  
 ]
 
 const router = createRouter({

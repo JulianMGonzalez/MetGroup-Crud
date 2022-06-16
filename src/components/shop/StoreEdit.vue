@@ -186,44 +186,6 @@
                         placeholder="Image link"
                       />
                     </div>
-                    <div class="my-4">
-                      <label for="users" class="sr-only"></label>
-                      <select
-                        id="users"
-                        name="user"
-                        type="select"
-                        autocomplete="user"
-                        required=""
-                        class="
-                          appearance-none
-                          rounded-none
-                          relative
-                          block
-                          w-full
-                          px-3
-                          py-2
-                          border border-gray-300
-                          placeholder-gray-500
-                          text-gray-900
-                          rounded-t-md
-                          focus:outline-none
-                          focus:ring-indigo-500
-                          focus:border-indigo-500
-                          focus:z-10
-                          sm:text-sm
-                        "
-                        placeholder="User"
-                        v-model="store.user"
-                      >
-                        <option
-                          v-for="user in users"
-                          :key="user.id"
-                          :value="user.id"
-                        >
-                          {{ user.name }}
-                        </option>
-                      </select>
-                    </div>
                     <button
                       type="button"
                       class="
@@ -236,13 +198,13 @@
                         text-white
                         hover:bg-blue-900
                       "
-                      @click="addStore"
+                      @click="editStore"
                     >
                       <span
                         class="font-medium"
                         @click="conditionalCreate = true"
                       >
-                        Add Store
+                        Edit Store
                       </span>
                     </button>
                     <!-- /End replace -->
@@ -267,8 +229,7 @@ import {
 } from "@headlessui/vue";
 import { XIcon } from "@heroicons/vue/outline";
 
-import axiosU from "@/services/user";
-import axiosS from "@/services/store";
+import axiosS from "@/services/store"
 
 export default {
   components: {
@@ -284,40 +245,45 @@ export default {
       type: Boolean,
       default: false,
     },
+    storeItem: {
+      type: Object,
+      required: false,
+    },
   },
-  data() {
+  created(){
+    this.StoreId = this.storeItem.id
+    this.store.name = this.storeItem.name
+    this.store.description = this.storeItem.description
+    this.store.image = this.storeItem.image
+  },
+  data(){
     return {
-      store: {
-        name: "",
-        description: "",
-        image: "",
-        user: "",
-      },
-      users: [],
-    };
-  },
-  mounted() {
-    this.getUsers();
+        storeId: null,
+        store: {
+            name: "",
+            description: "",
+            image: "",
+        },
+    }
   },
   methods: {
     closeOpen() {
       this.$emit("closeSlider", false);
     },
-    getUsers() {
-      axiosU.userList().then((res) => {
-        this.users = res.data;
+    editStore() {
+      const data = {
+        name: this.store.name,
+        description: this.store.description,
+        image: this.store.image,
+      };
+      axiosS.storeUpdate(this.StoreId, data).then(() => {
+        this.$emit("editStoreSlider", false);
       });
-    },
-    addStore() {
-        const data = {
-            name: this.store.name,
-            description: this.store.description,
-            image: this.store.image,
-            userId: this.store.user,
-        }
-      axiosS.storeAdd(data).then(() => {
-        this.$emit("addStoreSlider", false);
-      });
+      this.store = {
+        name: "",
+        description: "",
+        image: "",
+      };
     },
   },
 };

@@ -14,10 +14,7 @@
           hover:bg-blue-900
         "
       >
-        <span
-          class="font-medium"
-          @click="conditionalCreate = true"
-        >
+        <span class="font-medium" @click="conditionalCreate = true">
           Add Store
         </span>
       </button>
@@ -28,7 +25,11 @@
         <StorePreview :shop="item" />
       </div>
     </div>
-    <StoreAdd :open="conditionalCreate" @closeSlider="changeConditional"/>
+    <StoreAdd
+      :open="conditionalCreate"
+      @closeSlider="changeConditional"
+      @addStoreSlider="createStore"
+    />
   </div>
 </template>
 
@@ -48,13 +49,20 @@ export default {
     };
   },
   mounted() {
-    axiosS.storeList().then((res) => {
-      this.shops = res.data;
-    });
+    this.getStore()
   },
   methods: {
     changeConditional() {
       this.conditionalCreate = false;
+    },
+    createStore() {
+      this.changeConditional()
+      this.getStore();
+    },
+    getStore() {
+      axiosS.storeList().then((res) => {
+        this.shops = res.data;
+      });
     },
   },
 };
